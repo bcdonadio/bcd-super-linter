@@ -4,7 +4,7 @@ author: 'Bernardo Donadio'
 description: 'It is a simple combination of various linters, written in bash, to help validate your source code.'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/bcdonadio/bcd-super-linter:v5.0.3'
+  image: 'docker://ghcr.io/bcdonadio/bcd-super-linter:v5.0.4'
 branding:
   icon: 'check-square'
   color: 'white'

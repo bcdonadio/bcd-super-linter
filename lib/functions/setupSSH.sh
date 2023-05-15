@@ -35,9 +35,7 @@ function SetupGithubComSshKeys() {
     if [[ "${SSH_INSECURE_NO_VERIFY_GITHUB_KEY}" == "true" ]]; then
       warn "Skipping github.com key verification and adding without checking fingerprint"
       mkdir -p ~/.ssh
-      cat /tmp/github_rsa.pub >>~/.ssh/known_hosts
-      cat /tmp/github_ecdsa.pub >>~/.ssh/known_hosts
-      cat /tmp/github_ed25519.pub >>~/.ssh/known_hosts
+      cat /tmp/github_{rsa,ecdsa,ed25519}.pub >>~/.ssh/known_hosts
     else
       mkdir -p ~/.ssh
       if [[ "$(ssh-keygen -lf /tmp/github_rsa.pub)" == "3072 ${GITHUB_RSA_FINGERPRINT} github.com (RSA)" ]]; then
@@ -52,7 +50,7 @@ function SetupGithubComSshKeys() {
         info "Successfully verified github.com Ed25519 key"
         cat /tmp/github_ed25519.pub >>~/.ssh/known_hosts
       fi
-      if [[ -f "~/.ssh/known_hosts" ]]
+      if [ ! -f "${HOME}/.ssh/known_hosts" ]; then
         error "Could not verify any github.com key. SSH requests to github.com will likely fail."
       fi
     fi

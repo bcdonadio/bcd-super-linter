@@ -1,12 +1,12 @@
 ---
-name: 'Super-Linter'
-author: 'GitHub'
+name: 'BCD-Super-Linter'
+author: 'Bernardo Donadio'
 description: 'It is a simple combination of various linters, written in bash, to help validate your source code.'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/bcdonadio/super-linter:v5.0.1'
+  image: 'docker://ghcr.io/bcdonadio/bcd-super-linter:v5.0.2'
 branding:
   icon: 'check-square'
   color: 'white'
-# You can view https://github.com/github/super-linter#environment-variables
+# You can view https://github.com/bcdonadio/bcd-super-linter#environment-variables
 # to see a comprehensive list of all environment variables that can be passed

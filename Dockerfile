@@ -97,7 +97,7 @@ COPY dependencies/* /
 ###################################################################
 # Install Dependencies                                            #
 # The chown fixes broken uid/gid in ast-types-flow dependency     #
-# (see https://github.com/github/super-linter/issues/3901)        #
+# (see https://github.com/bcdonadio/bcd-super-linter/issues/3901)        #
 ###################################################################
 RUN npm install && chown -R "$(id -u)":"$(id -g)" node_modules && bundle install
 
@@ -270,19 +270,19 @@ ARG TARGETARCH
 #########################################
 # Label the instance and set maintainer #
 #########################################
-LABEL com.github.actions.name="GitHub Super-Linter" \
+LABEL com.github.actions.name="Bcdonadio Super-Linter" \
     com.github.actions.description="Lint your code base with GitHub Actions" \
     com.github.actions.icon="code" \
     com.github.actions.color="red" \
-    maintainer="GitHub DevOps <github_devops@github.com>" \
+    maintainer="Bernardo Donadio <bcdonadio@bcdonadio.com>" \
     org.opencontainers.image.created=$BUILD_DATE \
     org.opencontainers.image.revision=$BUILD_REVISION \
     org.opencontainers.image.version=$BUILD_VERSION \
-    org.opencontainers.image.authors="GitHub DevOps <github_devops@github.com>" \
-    org.opencontainers.image.url="https://github.com/github/super-linter" \
-    org.opencontainers.image.source="https://github.com/github/super-linter" \
-    org.opencontainers.image.documentation="https://github.com/github/super-linter" \
-    org.opencontainers.image.vendor="GitHub" \
+    org.opencontainers.image.authors="Bernardo Donadio <bcdonadio@bcdonadio.com>" \
+    org.opencontainers.image.url="https://github.com/bcdonadio/bcd-super-linter" \
+    org.opencontainers.image.source="https://github.com/bcdonadio/bcd-super-linter" \
+    org.opencontainers.image.documentation="https://github.com/bcdonadio/bcd-super-linter" \
+    org.opencontainers.image.vendor="Bernardo Donadio" \
     org.opencontainers.image.description="Lint your code base with GitHub Actions"
 
 #################################################

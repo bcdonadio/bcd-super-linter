@@ -1,4 +1,4 @@
-module github.com/github/super-linter
+module github.com/bcdonadio/bcd-super-linter
 
 go 1.17
 

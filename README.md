@@ -1,11 +1,11 @@
-**NOTICE**: If your use of the super-linter action failed around April 26th, 2023, we changed the organization name from `github` to `super-linter` so you will need to update your references to this action from `github/super-linter` to `super-linter/super-linter`.
-<hr>
 # Super-Linter
 
-This repository is for the **GitHub Action** to run a **Super-Linter**.
-It is a simple combination of various linters, written in `bash`, to help validate your source code.
+This repository is for the **GitHub Action** to run a **Super-Linter** that I
+forked to solve some SSH key issues when running it locally. It is a simple
+combination of various linters, written in `bash`, to help validate your source
+code.
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/51071879604e4f319859d4daf91c68f5)](https://app.codacy.com/gh/github/super-linter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=github/super-linter&amp;utm_campaign=Badge_Grade)
+Check the [upstream code here on Github](https://github.com/bcdonadio/bcd-super-linter).
 
 **The end goal of this tool:**
 
@@ -45,13 +45,21 @@ It is a simple combination of various linters, written in `bash`, to help valida
 
 ## How it Works
 
-The super-linter finds issues and reports them to the console output. Fixes are suggested in the console output but not automatically fixed, and a status check will show up as failed on the pull request.
+The super-linter finds issues and reports them to the console output. Fixes are
+suggested in the console output but not automatically fixed, and a status check
+will show up as failed on the pull request.
 
-The design of the **Super-Linter** is currently to allow linting to occur in **GitHub Actions** as a part of continuous integration occurring on pull requests as the commits get pushed. It works best when commits are being pushed early and often to a branch with an open or draft pull request. There is some desire to move this closer to local development for faster feedback on linting errors but this is not yet supported.
+The design of the **Super-Linter** is currently to allow linting to occur in
+**GitHub Actions** as a part of continuous integration occurring on pull
+requests as the commits get pushed. It works best when commits are being pushed
+early and often to a branch with an open or draft pull request. There is some
+desire to move this closer to local development for faster feedback on linting
+errors but this is not yet supported.
 
 ## Supported Linters
 
-Developers on **GitHub** can call the **GitHub Action** to lint their codebase with the following list of linters:
+Developers on **GitHub** can call the **GitHub Action** to lint their codebase
+with the following list of linters:
 
 | _Language_                       | _Linter_                                                                                                                                                                                                                |
 |----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -107,22 +115,31 @@ Developers on **GitHub** can call the **GitHub Action** to lint their codebase w
 
 ## How to use
 
-More in-depth [tutorial](https://www.youtube.com/watch?v=EDAmFKO4Zt0&t=118s) available
+More in-depth [tutorial](https://www.youtube.com/watch?v=EDAmFKO4Zt0&t=118s)
+available
 
 To use this **GitHub** Action you will need to complete the following:
 
 1. Create a new file in your repository called `.github/workflows/linter.yml`
-2. Copy the example workflow from below into that new file, no extra configuration required
+2. Copy the example workflow from below into that new file, no extra
+   configuration required
 3. Commit that file to a new branch
 4. Open up a pull request and observe the action working
 5. Enjoy your more _stable_, and _cleaner_ codebase
-6. Check out the [Wiki](https://github.com/github/super-linter/wiki) for customization options
+6. Check out the [Wiki](https://github.com/bcdonadio/bcd-super-linter/wiki) for
+   customization options
 
-**NOTE:** If you pass the _Environment_ variable `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}` in your workflow, then the **GitHub Super-Linter** will mark the status of each individual linter run in the Checks section of a pull request. Without this you will only see the overall status of the full run. There is no need to set the **GitHub** Secret as it is automatically set by GitHub, it only needs to be passed to the action.
+**NOTE:** If you pass the _Environment_ variable `GITHUB_TOKEN: ${{
+secrets.GITHUB_TOKEN }}` in your workflow, then the **GitHub Super-Linter** will
+mark the status of each individual linter run in the Checks section of a pull
+request. Without this you will only see the overall status of the full run.
+There is no need to set the **GitHub** Secret as it is automatically set by
+GitHub, it only needs to be passed to the action.
 
 ### Example connecting GitHub Action Workflow
 
-In your repository you should have a `.github/workflows` folder with **GitHub** Action similar to below:
+In your repository you should have a `.github/workflows` folder with **GitHub**
+Action similar to below:
 
 - `.github/workflows/linter.yml`
   - Example file can be found at [`TEMPLATES/linter.yml`](TEMPLATES/linter.yml)
@@ -184,7 +201,7 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: github/super-linter@v5
+        uses: bcdonadio/bcd-super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
@@ -213,17 +230,19 @@ _Note:_ IF you did not use `Lint Code Base` as GitHub Action name, please read [
 
 ### Images
 
-The **GitHub Super-Linter** now builds and supports `multiple` images. We have found as we added more linters, the image size expanded drastically.
-After further investigation, we were able to see that a few linters were very disk heavy. We removed those linters and created the `slim` image.
-This allows users to choose which **Super-Linter** they want to run and potentially speed up their build time.
-The available images:
+The **GitHub Super-Linter** now builds and supports `multiple` images. We have
+found as we added more linters, the image size expanded drastically. After
+further investigation, we were able to see that a few linters were very disk
+heavy. We removed those linters and created the `slim` image. This allows users
+to choose which **Super-Linter** they want to run and potentially speed up their
+build time. The available images:
 
-- `super-linter/super-linter:v5`
-- `super-linter/super-linter:slim-v5`
+- `bcdonadio/bcd-super-linter:v5`
+- `bcdonadio/bcd-super-linter:slim-v5`
 
 #### Standard Image
 
-The standard `super-linter/super-linter:v5` comes with all supported linters.
+The standard `bcdonadio/bcd-super-linter:v5` comes with all supported linters.
 Example usage:
 
 ```yml
@@ -231,7 +250,7 @@ Example usage:
 # Run Linter against code base #
 ################################
 - name: Lint Code Base
-  uses: super-linter/super-linter@v5
+  uses: bcdonadio/bcd-super-linter@v5
   env:
     VALIDATE_ALL_CODEBASE: false
     DEFAULT_BRANCH: master
@@ -240,7 +259,8 @@ Example usage:
 
 #### Slim Image
 
-The slim `super-linter/super-linter:slim-v5` comes with all supported linters but removes the following:
+The slim `bcdonadio/bcd-super-linter:slim-v5` comes with all supported linters
+but removes the following:
 
 - `rust` linters
 - `dotenv` linters
@@ -248,16 +268,17 @@ The slim `super-linter/super-linter:slim-v5` comes with all supported linters bu
 - `pwsh` linters
 - `c#` linters
 
-By removing these linters, we were able to bring the image size down by `2gb` and drastically speed up the build and download time.
-The behavior will be the same for non-supported languages, and will skip languages at run time.
-Example usage:
+By removing these linters, we were able to bring the image size down by `2gb`
+and drastically speed up the build and download time. The behavior will be the
+same for non-supported languages, and will skip languages at run time. Example
+usage:
 
 ```yml
 ################################
 # Run Linter against code base #
 ################################
 - name: Lint Code Base
-  uses: super-linter/super-linter/slim@v5
+  uses: bcdonadio/bcd-super-linter/slim@v5
   env:
     VALIDATE_ALL_CODEBASE: false
     DEFAULT_BRANCH: master
@@ -266,17 +287,22 @@ Example usage:
 
 ## Environment variables
 
-The super-linter allows you to pass the following `ENV` variables to be able to trigger different functionality.
+The super-linter allows you to pass the following `ENV` variables to be able to
+trigger different functionality.
 
 _Note:_ All the `VALIDATE_[LANGUAGE]` variables behave in a very specific way:
 
 - If none of them are passed, then they all default to true.
-- If any one of the variables are set to true, we default to leaving any unset variable to false (only validate those languages).
-- If any one of the variables are set to false, we default to leaving any unset variable to true (only exclude those languages).
-- If there are `VALIDATE_[LANGUAGE]` variables set to both true and false. It will fail.
+- If any one of the variables are set to true, we default to leaving any unset
+  variable to false (only validate those languages).
+- If any one of the variables are set to false, we default to leaving any unset
+  variable to true (only exclude those languages).
+- If there are `VALIDATE_[LANGUAGE]` variables set to both true and false. It
+  will fail.
 
-This means that if you run the linter "out of the box", all languages will be checked.
-But if you wish to select or exclude specific linters, we give you full control to choose which linters are run, and won't run anything unexpected.
+This means that if you run the linter "out of the box", all languages will be
+checked. But if you wish to select or exclude specific linters, we give you full
+control to choose which linters are run, and won't run anything unexpected.
 
 | **ENV VAR**                           | **Default Value**               | **Notes**                                                                                                                                                                                                            |
 |---------------------------------------|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -419,26 +445,40 @@ But if you wish to select or exclude specific linters, we give you full control 
 
 ### Template rules files
 
-You can use the **GitHub** **Super-Linter** _with_ or _without_ your own personal rules sets. This allows for greater flexibility for each individual codebase. The Template rules all try to follow the standards we believe should be enabled at the basic level.
+You can use the **GitHub** **Super-Linter** _with_ or _without_ your own
+personal rules sets. This allows for greater flexibility for each individual
+codebase. The Template rules all try to follow the standards we believe should
+be enabled at the basic level.
 
-- Copy **any** or **all** template rules files from `TEMPLATES/` into the `.github/linters/` directory of your repository, and modify them to suit your needs.
-  - The rules files in [this repository's `TEMPLATE` folder](https://github.com/super-linter/super-linter/tree/main/TEMPLATES) will be used as defaults should any be omitted.
+- Copy **any** or **all** template rules files from `TEMPLATES/` into the
+  `.github/linters/` directory of your repository, and modify them to suit your
+  needs.
+  - The rules files in [this repository's `TEMPLATE`
+    folder](https://github.com/bcdonadio/bcd-super-linter/tree/main/TEMPLATES)
+    will be used as defaults should any be omitted.
 
 ### Using your own rules files
 
-If your repository contains your own rules files that live outside of a `.github/linters/` directory, you will have to tell Super-Linter where your rules files are located in your repository, and what their filenames are. To learn more, see [Using your own rules files](docs/using-rules-files.md).
+If your repository contains your own rules files that live outside of a
+`.github/linters/` directory, you will have to tell Super-Linter where your
+rules files are located in your repository, and what their filenames are. To
+learn more, see [Using your own rules files](docs/using-rules-files.md).
 
 ### Disabling rules
 
-If you need to disable certain _rules_ and _functionality_, you can view [Disable Rules](https://github.com/super-linter/super-linter/blob/main/docs/disabling-linters.md)
+If you need to disable certain _rules_ and _functionality_, you can view
+[Disable
+Rules](https://github.com/bcdonadio/bcd-super-linter/blob/main/docs/disabling-linters.md)
 
 ### Using your own SSH key
 
-If you need to add your own SSH key to the linter because of private dependencies, you can use the `SSH_KEY` environment
-variable. The value of that environment variable should be an SSH private key that has access to your private
-repositories.
+If you need to add your own SSH key to the linter because of private
+dependencies, you can use the `SSH_KEY` environment variable. The value of that
+environment variable should be an SSH private key that has access to your
+private repositories.
 
-You should add this key as an [Encrypted Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+You should add this key as an [Encrypted
+Secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 and access it with the `secrets` parameter.
 
 Example workflow:
@@ -489,7 +529,7 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: super-linter/super-linter@v5
+        uses: bcdonadio/bcd-super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
@@ -499,21 +539,24 @@ jobs:
 
 ## Filter linted files
 
-If you need to lint only a folder or exclude some files from linting, you can use optional environment parameters `FILTER_REGEX_INCLUDE` and `FILTER_REGEX_EXCLUDE`
+If you need to lint only a folder or exclude some files from linting, you can
+use optional environment parameters `FILTER_REGEX_INCLUDE` and
+`FILTER_REGEX_EXCLUDE`
 
 Examples:
 
 - Lint only src folder: `FILTER_REGEX_INCLUDE: .*src/.*`
 - Do not lint files inside test folder: `FILTER_REGEX_EXCLUDE: .*test/.*`
-- Do not lint JavaScript files inside test folder: `FILTER_REGEX_EXCLUDE: .*test/.*.js`
+- Do not lint JavaScript files inside test folder: `FILTER_REGEX_EXCLUDE:
+  .*test/.*.js`
 
 <!-- This `README.md` has both markers in the text, so it is considered not generated. -->
-Additionally when `IGNORE_GENERATED_FILES=true`, super-linter
-ignores any file with `@generated` marker in it unless the file
-also has `@not-generated` marker. `@generated` marker is
-[used by Facebook](https://engineering.fb.com/2015/08/20/open-source/writing-code-that-writes-code-with-hack-codegen/)
-and some other projects to mark generated files. For example, this
-file is considered generated:
+Additionally when `IGNORE_GENERATED_FILES=true`, super-linter ignores any file
+with `@generated` marker in it unless the file also has `@not-generated` marker.
+`@generated` marker is [used by
+Facebook](https://engineering.fb.com/2015/08/20/open-source/writing-code-that-writes-code-with-hack-codegen/)
+and some other projects to mark generated files. For example, this file is
+considered generated:
 
 ```bash
 #!/bin/sh
@@ -529,40 +572,51 @@ echo "@generated" # @not-generated
 
 ## Docker Hub
 
-The **Docker** container that is built from this repository is located at [github/super-linter](https://hub.docker.com/r/github/super-linter)
+The **Docker** container that is built from this repository is located at
+[bcdonadio/bcd-super-linter](https://hub.docker.com/r/bcdonadio/bcd-super-linter)
 
 ## Run Super-Linter outside GitHub Actions
 
 ### Local (troubleshooting/debugging/enhancements)
 
-If you find that you need to run super-linter locally, you can follow the documentation at [Running super-linter locally](https://github.com/super-linter/super-linter/blob/main/docs/run-linter-locally.md)
+If you find that you need to run super-linter locally, you can follow the
+documentation at [Running super-linter
+locally](https://github.com/bcdonadio/bcd-super-linter/blob/main/docs/run-linter-locally.md)
 
 Check out the [note](#how-it-works) in **How it Works** to understand more about the **Super-Linter** linting locally versus via continuous integration.
 
 ### Azure
 
-Check out this [article](https://blog.tyang.org/2020/06/27/use-github-super-linter-in-azure-pipelines/)
+Check out this
+[article](https://blog.tyang.org/2020/06/27/use-github-super-linter-in-azure-pipelines/)
 
 ### GitLab
 
-Check out this [snippet](https://gitlab.com/snippets/1988376) and this Guided Exploration: [GitLab CI CD Extension for Super-Linter](https://gitlab.com/guided-explorations/ci-cd-plugin-extensions/ci-cd-plugin-extension-github-action-super-linter)
+Check out this [snippet](https://gitlab.com/snippets/1988376) and this Guided
+Exploration: [GitLab CI CD Extension for
+Super-Linter](https://gitlab.com/guided-explorations/ci-cd-plugin-extensions/ci-cd-plugin-extension-github-action-super-linter)
 
 ### Codespaces and Visual Studio Code
 
-You can checkout this repository using [GitHub Codespaces](https://github.com/features/codespaces/) and [Container Remote Development](https://code.visualstudio.com/docs/remote/containers), and debug the linter using the `Test Linter` task.
+You can checkout this repository using [GitHub
+Codespaces](https://github.com/features/codespaces/) and [Container Remote
+Development](https://code.visualstudio.com/docs/remote/containers), and debug
+the linter using the `Test Linter` task.
 ![Example](https://user-images.githubusercontent.com/15258962/85165778-2d2ce700-b21b-11ea-803e-3f6709d8e609.gif)
 
 ### SSL Certs
 
-If you need to inject a SSL cert into the trust store, you will need to first copy the cert to **GitHub Secrets**
-Once you have copied the plain text certificate into **GitHub Secrets**, you can use the variable `SSL_CERT_SECRET` to point the **Super-Linter** to the files contents.
-Once found, it will load the certificate contents to a file, and to the trust store.
+If you need to inject a SSL cert into the trust store, you will need to first
+copy the cert to **GitHub Secrets** Once you have copied the plain text
+certificate into **GitHub Secrets**, you can use the variable `SSL_CERT_SECRET`
+to point the **Super-Linter** to the files contents. Once found, it will load
+the certificate contents to a file, and to the trust store.
 
 - Example workflow:
 
 ```yml
 - name: Lint Code Base
-  uses: super-linter/super-linter@v5
+  uses: bcdonadio/bcd-super-linter@v5
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     SSL_CERT_SECRET: ${{ secrets.ROOT_CA }}
@@ -572,16 +626,20 @@ Once found, it will load the certificate contents to a file, and to the trust st
 
 Below are a list of the known limitations for the **GitHub Super-Linter**:
 
-- Due to being completely packaged at runtime, you will not be able to update dependencies or change versions of the enclosed linters and binaries
-- Additional details from `package.json` are not read by the **GitHub Super-Linter**
-- Downloading additional codebases as dependencies from private repositories will fail due to lack of permissions
+- Due to being completely packaged at runtime, you will not be able to update
+  dependencies or change versions of the enclosed linters and binaries
+- Additional details from `package.json` are not read by the **GitHub
+  Super-Linter**
+- Downloading additional codebases as dependencies from private repositories
+  will fail due to lack of permissions
 
 ## How to contribute
 
-If you would like to help contribute to this **GitHub** Action, please see [CONTRIBUTING](https://github.com/super-linter/super-linter/blob/main/.github/CONTRIBUTING.md)
+If you would like to help contribute to this **GitHub** Action, please see
+[CONTRIBUTING](https://github.com/bcdonadio/bcd-super-linter/blob/main/.github/CONTRIBUTING.md)
 
 ---
 
 ### License
 
-- [MIT License](https://github.com/super-linter/super-linter/blob/main/LICENSE)
+- [MIT License](https://github.com/bcdonadio/bcd-super-linter/blob/main/LICENSE)
